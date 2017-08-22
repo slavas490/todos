@@ -1,0 +1,14 @@
+@import './styles/fonts';
+
+* {
+	font-family: 'Open Sans';
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.Entry {
+	@import './styles/_Entry';
+}
