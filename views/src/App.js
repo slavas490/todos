@@ -8,6 +8,10 @@ import * as reducers from './reducers'
 import * as components from './components'
 import * as actions from './actions'
 import ajax from './utils/ajax'
+import AlertContainer from 'react-alert'
+
+import iSuccess from './images/success.png'
+import iError from './images/error.png'
 
 const store = createStore(
 	combineReducers({
@@ -17,7 +21,6 @@ const store = createStore(
 )
 
 const history = createBrowserHistory()
-
 
 class App extends Component {
 	constructor(props) {
@@ -46,12 +49,35 @@ class App extends Component {
 	}
 
 	render() {
+		let alertOptions = {
+			offset: 14,
+			position: 'top right',
+			theme: 'dark',
+			time: 5000,
+			transition: 'fade'
+		}
+
+		let aMsg = this.msg
+
+		const alert = {
+			err (data) {
+				if(!data || !data.length) {
+					data = 'some error occurred. please, try again later'
+				}
+				aMsg.show(data, { icon: <img src={iError} alt='error' />})
+			},
+			ok (data) {
+				aMsg.show(data, { icon: <img src={iSuccess} alt='ok' />})
+			}
+		}
+
 		return (
 			<Provider store={store}>
 				<Router history={history}>
 					{ 
 						this.state._load &&
 							<div>
+								<AlertContainer ref={a => this.msg = a} {...alertOptions} />
 								{
 									!this.state.logined
 									?
@@ -63,7 +89,7 @@ class App extends Component {
 											</Switch>
 										</div>
 									:
-										<components.Home historyEvent={history.listen} />
+										<components.Home {...this.props} history={history} alert={alert} />
 								}
 							</div>
 					}

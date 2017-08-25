@@ -84,10 +84,6 @@ input[type="text"], input[type="password"], textarea {
   .input-group > * {
     flex-grow: 1;
     border-radius: 0 !important; }
-    .input-group > *:first-child {
-      border-radius: 2px 0 0 2px !important; }
-    .input-group > *:last-child {
-      border-radius: 0 2px 2px 0 !important; }
 
 input.icon {
   padding-left: 1.6rem !important;
@@ -97,26 +93,24 @@ input.icon {
 .icon {
   background-repeat: no-repeat !important;
   background-size: 20px; }
-  .icon.login {
-    background-image: url("images/icons/user.png"); }
-    .icon.login:focus, .icon.login:hover {
+  .icon.user {
+    background-image: url("./images/icons/user.png"); }
+    .icon.user:focus, .icon.user:hover {
       background-image: url("images/icons/user_b.png"); }
   .icon.pass {
-    background-image: url("images/icons/pass.png"); }
+    background-image: url("./images/icons/pass.png"); }
     .icon.pass:focus, .icon.pass:hover {
       background-image: url("images/icons/pass_b.png"); }
-  .icon.archive {
-    background-image: url("images/icons/archive.png"); }
   .icon.menu {
-    background-image: url("images/icons/menu.png"); }
+    background-image: url("./images/icons/menu.png"); }
     .icon.menu:focus, .icon.menu:hover {
       background-image: url("images/icons/menu_b.png"); }
   .icon.delete {
-    background-image: url("images/icons/delete.png"); }
+    background-image: url("./images/icons/delete.png"); }
     .icon.delete:focus, .icon.delete:hover {
       background-image: url("images/icons/delete_b.png"); }
   .icon.done {
-    background-image: url("images/icons/done.png"); }
+    background-image: url("./images/icons/done.png"); }
     .icon.done:focus, .icon.done:hover {
       background-image: url("images/icons/done_b.png"); }
 
@@ -195,23 +189,28 @@ input.icon {
       .Home .content .Projects ul a {
         color: #4c4c4c;
         border: none;
-        width: 100%;
+        width: calc(100% - 1rem);
         padding: 0.1rem 0.5rem;
         display: flex;
         justify-content: space-between;
         align-items: center; }
         .Home .content .Projects ul a .icons {
-          display: flex; }
+          display: none; }
         .Home .content .Projects ul a .icon {
           width: 20px;
           height: 20px;
-          display: inline-block;
-          display: none; }
+          display: inline-block; }
           .Home .content .Projects ul a .icon:nth-child(n+2) {
             margin-left: 0.5rem; }
+        .Home .content .Projects ul a.highliht {
+          background-color: #deedff; }
         .Home .content .Projects ul a:hover {
           font-weight: bold;
           background-color: #fff; }
+          .Home .content .Projects ul a:hover .icons {
+            display: flex; }
+          .Home .content .Projects ul a:hover .tCount {
+            display: none; }
         .Home .content .Projects ul a:hover .icon {
           display: block; }
       .Home .content .Projects ul:hover a:not(:hover) {
@@ -312,13 +311,9 @@ input.icon {
         margin-bottom: 0.5rem; }
     .Home .content .Tasks .form form .Select-control {
       border-radius: 0; }
-    .Home .content .Tasks .form form .react-datepicker-wrapper {
-      display: block; }
-      .Home .content .Tasks .form form .react-datepicker-wrapper .react-datepicker__input-container {
-        display: block; }
-      .Home .content .Tasks .form form .react-datepicker-wrapper input {
-        height: 1.8rem;
-        width: calc(100% - 1.2rem); }
+    .Home .content .Tasks .form form .rdt input {
+      width: calc(100% - 1.2rem);
+      border-radius: 0; }
 
 @media screen and (max-width: 1100px) {
   .Home .content > div {

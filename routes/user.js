@@ -4,10 +4,6 @@ import * as models from '../models'
 
 const router = express.Router()
 
-/*
- * Token
- */
-
 // login
 
 router.post('/token', (req, res) => {

@@ -18,13 +18,13 @@ router.use((req, res, next) => {
 })
 
 
-// User
+// user
 router.use('/user', user)
 
-// Projects
+// projects
 router.use('/projects', projects)
 
-// Tasks
+// tasks
 router.use('/tasks', tasks)
 
 

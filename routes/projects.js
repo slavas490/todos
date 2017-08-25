@@ -4,7 +4,6 @@ import user from './user'
 import * as models from '../models'
 
 const ObjectId = mongoose.Types.ObjectId;
-
 const router = express.Router()
 
 // add project
@@ -86,14 +85,33 @@ router.put('/:pid', (req, res) => {
 // delete the project
 
 router.delete('/:pid', (req, res) => {
-    models.projects.findOne({ user: req.session.userID, _id: req.params.pid })
-    .remove()
+    const pid = req.params.pid
+
+    let dRes = []
+
+    models.tasks.find({ project: pid, state: true })
     .then(out => {
-        if(out.result && out.result.n) {
-            res.ok()
+        if(out && out.length) {
+            res.err('the project contains not finished tasks')
+            return false
         }
-        else{
-            res.err()
+        else {
+            return models.tasks.find({ project: pid }).remove().exec()
+        }
+    })
+    .then(out => {
+        if(out) {
+            return models.projects.findOne({ user: req.session.userID, _id: req.params.pid }).remove().exec()
+        }
+    })
+    .then(out => {
+        if(out) {
+            if(out.result && out.result.n) {
+                res.ok()
+            }
+            else{
+                res.err()
+            }
         }
     })
 })

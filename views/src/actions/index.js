@@ -38,6 +38,9 @@ const task = {
     delete (data) {
         return { type: 'TASK_DELETE', data }
     },
+    deleteByProjectId (data) {
+        return { type: 'TASK_DELETE_BY_PROJECT_ID', data }
+    },
     done (data) {
         return { type: 'TASK_DONE', data }
     }

@@ -112,17 +112,9 @@
             border-radius: 0;
         }
 
-        .react-datepicker-wrapper {
-            display: block;
-
-            .react-datepicker__input-container {
-                display: block;
-            }
-
-            input {
-                height: 1.8rem;
-                width: calc(100% - 1.2rem);
-            }
+        .rdt input {
+            width: calc(100% - 1.2rem);
+            border-radius: 0;
         }
     }
 }

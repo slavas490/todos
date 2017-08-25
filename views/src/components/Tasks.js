@@ -4,10 +4,9 @@ import ajax from '../utils/ajax'
 import * as actions from '../actions'
 import Select from 'react-select'
     import 'react-select/dist/react-select.css'
-import DatePicker from 'react-datepicker'
-    import 'react-datepicker/dist/react-datepicker.css'
+import Datetime from 'react-datetime'
+    import '../styles/react-datetime.css'
     import moment from 'moment';
-
 
 class Tasks extends Component {
 	constructor(props) {
@@ -18,11 +17,12 @@ class Tasks extends Component {
             filter: null
         }
 
-        props.historyEvent(location => {
+        props.history.listen(location => {
             this.formFlush()
             this.filterChange(location)
         })
         
+        this.alert = this.props.alert
         this.dispatch = props.dispatch
         this.formFlush = this.formFlush.bind(this)
         this.addTaskShow = this.addTaskShow.bind(this)
@@ -41,7 +41,7 @@ class Tasks extends Component {
                 this.dispatch(actions.task.init(out.data))
             }
         })
-
+        
         this.filterChange(window.location)
     }
 
@@ -74,12 +74,41 @@ class Tasks extends Component {
             priority: state._priority,
             project: state._project,
             state: state._state,
-            date: state._date ? state._date.startOf('day').utc() : null
+            date: state._date ? state._date : null
+        }
+    }
+
+    taskCheck (show_alert = true) {
+        const check = (data) => {
+            if(data === undefined || data === null) {
+                return false
+            }
+            else if(typeof data === "string" && data.length == 0) {
+                return false
+            }
+            
+            return true
+        }
+
+        const task = this.task()
+
+        if(!check(task.name) || !check(task.priority) || !check(task.date) || !check(task.state) || !check(task.project)) {
+            if(show_alert) {
+                this.alert.err('all fields are required')
+            }
+            return false
+        }
+        else {
+            return true
         }
     }
 
     taskCreate (e) {
         e.preventDefault()
+
+        if(!this.taskCheck()) {
+            return false
+        }
 
         if(this.state._edit_id) {
             this.taskUpdate()
@@ -93,14 +122,19 @@ class Tasks extends Component {
             if(!out.err) {
                 task._id = out.data;
                 this.dispatch(actions.task.add(task))
+                this.alert.ok('task successfully created')
+                this.props.history.push('/project/'+task.project)
                 this.formFlush()
+            }
+            else {
+                this.alert.err(out.text)
             }
         })
     }
 
     taskEdit (e, id) {
         e.preventDefault()
-
+        
         let task = this.props.tasks.find(el => el._id == id)
 
         if(!task) {
@@ -124,6 +158,10 @@ class Tasks extends Component {
             if(!out.err) {
                 this.dispatch(actions.task.change(out.data))
                 this.formFlush()
+                this.alert.ok('task successfully updated')
+            }
+            else {
+                this.alert.err(out.text)
             }
         })
     }
@@ -135,6 +173,10 @@ class Tasks extends Component {
         .then(out => {
             if(!out.err) {
                 this.dispatch(actions.task.delete(id))
+                this.alert.ok('task successfully removed')
+            }
+            else {
+                this.alert.err(out.text)
             }
         })
     }
@@ -146,6 +188,10 @@ class Tasks extends Component {
         .then(out => {
             if(!out.err) {
                 this.dispatch(actions.task.done(id))
+                this.alert.ok('task was done')
+            }
+            else {
+                this.alert.err(out.text)
             }
         })
     }
@@ -193,6 +239,16 @@ class Tasks extends Component {
             return c ? c.color : null
         }
 
+        const getProjectColor = (el) => {
+            const p = props.projects.find(p => p._id===el.project)
+            return p ? p.color : null
+        }
+
+        const getProjectName = (el) => {
+            const p = props.projects.find(p => p._id===el.project)
+            return p ? p.name : null
+        }
+
         const getTitle = () => {
             let title = { title: '', date: '' }
 
@@ -222,7 +278,7 @@ class Tasks extends Component {
 
         // tasks list
         let list = props.tasks.map(el => {
-            if(new Date(el.date) < new Date()-86400000 && state.filter!=3) {
+            if(new Date(el.date) < new Date() && state.filter!=3) {
                 el.exp = 1
             }
             else {
@@ -234,24 +290,31 @@ class Tasks extends Component {
         
         // total filter
         let _today = new Date()
-        _today.setHours(0,0,0,0)
 
         list = props.tasks.filter(el => {
+            let elDate = new Date(el.date)
+
             if(state.filter == 3) { // archive
                 return !el.state
             }
             else {
-                if((new Date(el.date)<_today && !el.state) || !el.state) { // exclude old
+                if(!el.state) { // exclude old
                     return false
                 }
                 else if(state.filter == 1) { // week
-                    return (new Date(el.date)>=_today && new Date(el.date)<=(_today.getTime()+604800000))
+                    let tomorrow = new Date()
+                        tomorrow.setHours(0,0,0,0)
+                        tomorrow = new Date(tomorrow.getTime()+86400000)
+                    return (elDate>tomorrow && elDate<=(tomorrow.getTime()+604800000))
                 }
                 else if(state.filter == 2) { // by project
                     return el.project == state._filter_val
                 }
                 else { // today
-                    return (new Date(el.date).getTime()==_today.getTime())
+                    let dayStart = new Date(), dayEnd = new Date()
+                        dayStart.setHours(0,0,0,0)
+                        dayEnd.setHours(23,59,59,999)
+                    return (elDate>=dayStart && elDate<=dayEnd)
                 }
             }
         })
@@ -274,8 +337,8 @@ class Tasks extends Component {
                                 </div>
 
                                 <div className="pWrap">
-                                    <div className="pLabel" style={{backgroundColor:props.projects.find(p => p._id===el.project).color}}></div>
-                                    <div className="project">{props.projects.find(p => p._id===el.project).name}</div>
+                                    <div className="pLabel" style={{backgroundColor:getProjectColor(el)}}></div>
+                                    <div className="project">{getProjectName(el)}</div>
 
                                     <div className="icons">
                                         <div className="icon menu" onClick={e => this.taskEdit(e, el._id)}></div>
@@ -295,13 +358,11 @@ class Tasks extends Component {
                         :
                             <form onSubmit={this.taskCreate}>
                                 <div className="input-group">
+                                    <input type="text" value={state._name} onChange={e => this.setState({ _name: e.target.value }) } placeholder="Name" />
+                                    <Select value={state._priority} options={_priority_list} onChange={val => this.setState({ _priority: (val?val.value:null) })} placeholder="Priority" />
+                                    <Datetime dateFormat="YYYY/MM/DD" timeFormat="HH:mm:ss" value={state._date} onChange={val => this.setState({ _date: val }) } />
                                     <Select value={state._state} options={_states_list} onChange={val => this.setState({ _state: (val?val.value:null) })} placeholder="State" />
                                     <Select value={state._project} options={props.projects.map(el => { return { value: el._id, label: el.name } })} onChange={val => this.setState({ _project: (val?val.value:null) })} placeholder="Project" />
-                                    <input type="text" value={state._name} onChange={e => this.setState({ _name: e.target.value }) } placeholder="Name" />
-                                </div>
-                                <div className="input-group">
-                                    <Select value={state._priority} options={_priority_list} onChange={val => this.setState({ _priority: (val?val.value:null) })} placeholder="Priority" />
-                                    <DatePicker todayButton={"Today"} placeholderText="Date" dateFormat="DD/MM/YYYY" selected={state._date} onChange={val => this.setState({ _date: val }) } />
                                     <input type="submit" className="btn" value="OK"/>
                                     <input type="submit" className="btn danger" value="X" onClick={() => this.addTaskShow(false)} />
                                 </div>

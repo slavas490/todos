@@ -22,7 +22,6 @@ router.post('/', (req, res) => {
         }
     })
     .then(out=>{
-        console.dir(out)
         if(!out.errors) {
             res.ok(out._id)
         }
@@ -88,7 +87,6 @@ router.put('/:pid', (req, res) => {
             }
             
             out.save()
-
             res.ok(out)
         }
         else {

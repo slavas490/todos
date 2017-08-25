@@ -4,51 +4,19 @@ input.icon {
     min-width: 13.9rem!important;
 }
 
+$icons: 'user' 'pass' 'menu' 'delete' 'done';
+
 .icon {
     background-repeat: no-repeat!important;
     background-size: 20px;
 
-    &.login {
-        background-image: url('images/icons/user.png');
-
-        &:focus, &:hover {
-            background-image: url('images/icons/user_b.png');
-        }
-    }
-
-    &.pass {
-        background-image: url('images/icons/pass.png');
-
-        &:focus, &:hover {
-            background-image: url('images/icons/pass_b.png');
-        }
-    }
-
-    &.archive {
-        background-image: url('images/icons/archive.png');
-    }
-
-    &.menu {
-        background-image: url('images/icons/menu.png');
-
-        &:focus, &:hover {
-            background-image: url('images/icons/menu_b.png');
-        }
-    }
-
-    &.delete {
-        background-image: url('images/icons/delete.png');
-
-        &:focus, &:hover {
-            background-image: url('images/icons/delete_b.png');
-        }
-    }
-
-    &.done {
-        background-image: url('images/icons/done.png');
-
-        &:focus, &:hover {
-            background-image: url('images/icons/done_b.png');
+    @each $item in $icons {
+        &.#{$item} {
+            background-image: url('./images/icons/#{$item}.png');
+            
+            &:focus, &:hover {
+                background-image: url('images/icons/#{$item}_b.png');
+            }
         }
     }
 }

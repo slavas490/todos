@@ -5,6 +5,7 @@ import ajax from '../utils/ajax'
 import * as actions from '../actions'
 import { GithubPicker } from 'react-color';
 
+
 class Projects extends Component {
 	constructor(props) {
 		super(props)
@@ -17,6 +18,12 @@ class Projects extends Component {
             _pName: '',
         }
         
+        props.history.listen(location => {
+            this.formFlush()
+            this.changeActiveProject(location)
+        })
+        
+        this.alert = this.props.alert
         this.dispatch = this.props.dispatch
         this.formFlush = this.formFlush.bind(this)
         this.addProjectShow = this.addProjectShow.bind(this)
@@ -26,6 +33,7 @@ class Projects extends Component {
         this.projectEdit = this.projectEdit.bind(this)
         this.projectUpdate = this.projectUpdate.bind(this)
         this.projectDelete = this.projectDelete.bind(this)
+        this.changeActiveProject = this.changeActiveProject.bind(this)
     }
 
     componentDidMount () {
@@ -35,6 +43,8 @@ class Projects extends Component {
                 this.dispatch(actions.project.init(out.data))
             }
         })
+
+        this.changeActiveProject(window.location)
     }
 
     formFlush () {
@@ -82,6 +92,7 @@ class Projects extends Component {
         let project = this.project()
         
         if( !project.name.length ) {
+            this.alert.err('project name is required')
             return false
         }
 
@@ -91,6 +102,10 @@ class Projects extends Component {
                 project._id = out.data;
                 this.dispatch(actions.project.add(project))
                 this.formFlush()
+                this.alert.ok('project successfully created')
+            }
+            else {
+                this.alert.err(out.text)
             }
         })
     }
@@ -119,38 +134,76 @@ class Projects extends Component {
                 this.dispatch(actions.project.change(out.data))
                 this.formFlush()
             }
+            else {
+                this.alert.err(out.text)
+            }
         })
     }
 
     projectDelete (e, id) {
         e.preventDefault()
 
+        const props = this.props
+        
         ajax.delete('/projects/'+id)
         .then(out => {
             if(!out.err) {
                 this.dispatch(actions.project.delete(id))
+                this.dispatch(actions.task.deleteByProjectId(id))
+                this.alert.ok('project successfully removed')
+
+                let active_url = props.history.location.pathname.split('/')
+                
+                if(active_url[1]=='project' && active_url[2]==this.state.activeProject) {
+                    props.history.push('/')
+                }
+            }
+            else {
+                this.alert.err(out.text)
             }
         })
     }
 
+    changeActiveProject (location) {
+        let link = (location.location ? location.location.pathname : location.pathname).split('/')
+
+        if(link[1] == 'project') {
+            this.setState({ activeProject: link[2] })
+        }
+        else {
+            this.setState({ activeProject: null })
+        }
+    }
+
 	render() {
         const state = this.state, props = this.props
-        
+
+        // tasks by project
+        const getTasksByProject = (pid) => {
+            return props.tasks.filter(el => {
+                return el.project == pid && el.state
+            }).length
+        }
+
 		return (
 			<div className="Projects">
                 <div className="title">Projects</div>
                 <ul>
                     {
-                        props.projects.map((el,i) =>
-                            <li key={el._id}>
-                                <Link to={"/project/"+el._id}>
-                                    <span><span style={{background:el.color}} className="color"></span> {el.name}</span>
-                                    <div className="icons">
-                                        <div className="icon menu" onClick={e => this.projectEdit(e, el._id)}></div>
-                                        <div className="icon delete" onClick={e => this.projectDelete(e, el._id)}></div>
-                                    </div>
-                                </Link>
-                            </li>
+                        props.projects.map((el,i) => {
+                            const tCount = getTasksByProject(el._id)
+
+                            return <li key={el._id}>
+                                    <Link to={"/project/"+el._id} className={state.activeProject==el._id?"highliht":""}>
+                                        <span><span style={{background:el.color}} className="color"></span> {el.name}</span>
+                                        <div className="tCount">{tCount>0?tCount:''}</div>
+                                        <div className="icons">
+                                            <div className="icon menu" onClick={e => this.projectEdit(e, el._id)}></div>
+                                            <div className="icon delete" onClick={e => this.projectDelete(e, el._id)}></div>
+                                        </div>
+                                    </Link>
+                                </li>
+                            }
                         )
                     }
                 </ul>

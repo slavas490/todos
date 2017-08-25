@@ -45,7 +45,7 @@ class Login extends Component {
 
 					<div className="row">
 						<label>Username:</label>
-						<input onChange={(e) => this.setState({ form: {...state.form, username: e.target.value} })} placeholder="Username" className="icon login" type="text"/>
+						<input onChange={(e) => this.setState({ form: {...state.form, username: e.target.value} })} placeholder="Username" className="icon user" type="text"/>
 					</div>
 					<div className="row">
 						<label>Password:</label>

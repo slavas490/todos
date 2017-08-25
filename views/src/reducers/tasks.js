@@ -7,10 +7,10 @@ const reducer = (state = [], action) => {
         case 'TASK_CHANGE':
             return state.map((el) => {
                 if(el._id == action.data._id) {
-                    el.name = action.data.name,
-                    el.state = action.data.state,
-                    el.priority = action.data.priority,
-                    el.date = action.data.date,
+                    el.name = action.data.name
+                    el.state = action.data.state
+                    el.priority = action.data.priority
+                    el.date = action.data.date
                     el.project = action.data.project
                 }
 
@@ -19,6 +19,10 @@ const reducer = (state = [], action) => {
         case 'TASK_DELETE':
             return state.filter((el) => {
                 return el._id !== action.data
+            })
+        case 'TASK_DELETE_BY_PROJECT_ID':
+            return state.filter((el) => {
+                return el.project !== action.data
             })
         case 'TASK_DONE':
             return state.map((el) => {

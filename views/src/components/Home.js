@@ -17,10 +17,6 @@ class Home extends Component {
         this.dispatch = this.props.dispatch
         this.submit = this.submit.bind(this)
     }
-    
-    componentWillReceiveProps (props) {
-        // console.dir(props.projects.list)
-    }
 
 	submit (e) {
         e.preventDefault()
@@ -47,12 +43,8 @@ class Home extends Component {
                 </div>
                 <div className="content">
                     <div>
-                        <ul className="filterDay">
-                            <li><Link to="/">Today <span className="count">(5)</span></Link></li>
-                            <li><Link to="/week">Next 7 days <span className="count">(18)</span></Link></li>
-                        </ul>
-
-                        <components.Projects />
+                        <components.dFilter />
+                        <components.Projects {...this.props} />
                     </div>
                     <div>
                         <components.Tasks {...this.props} />
