@@ -38,9 +38,319 @@
   src: local("Open Sans Bold"), local("OpenSans-Bold"), url("./fonts/open-sans-v14-latin_cyrillic-700.eot?#iefix") format("embedded-opentype"), url("./fonts/open-sans-v14-latin_cyrillic-700.woff2") format("woff2"), url("./fonts/open-sans-v14-latin_cyrillic-700.woff") format("woff"), url("./fonts/open-sans-v14-latin_cyrillic-700.ttf") format("truetype"), url("./fonts/open-sans-v14-latin_cyrillic-700.svg#OpenSans") format("svg");
   /* Legacy iOS */ }
 
+form .row {
+  padding: 0.5rem 0; }
+  form .row label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.2rem; }
+
+input[type="text"], input[type="password"], textarea {
+  border: 0.1rem solid #d2d2d2;
+  padding: 0.3rem 0.5rem;
+  border-radius: 2px;
+  font-size: 1rem; }
+  input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
+    outline: 0.2rem solid #1aabff; }
+
+.btn {
+  padding: 0.3rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0);
+  background: #00a1ff;
+  border-radius: 2px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  outline: none; }
+  .btn.danger {
+    background-color: #ff8d3b; }
+    .btn.danger:hover {
+      background-color: #ef3005; }
+  .btn:hover {
+    background: #007fca; }
+
+.alert {
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  color: #fff;
+  border-radius: 2px;
+  margin: 0.8rem 0; }
+  .alert.warn {
+    background: #ff9191;
+    border: 1px solid #ff4242; }
+
+.input-group {
+  display: flex; }
+  .input-group > * {
+    flex-grow: 1;
+    border-radius: 0 !important; }
+    .input-group > *:first-child {
+      border-radius: 2px 0 0 2px !important; }
+    .input-group > *:last-child {
+      border-radius: 0 2px 2px 0 !important; }
+
+input.icon {
+  padding-left: 1.6rem !important;
+  background-position: 2px;
+  min-width: 13.9rem !important; }
+
+.icon {
+  background-repeat: no-repeat !important;
+  background-size: 20px; }
+  .icon.login {
+    background-image: url("images/icons/user.png"); }
+    .icon.login:focus, .icon.login:hover {
+      background-image: url("images/icons/user_b.png"); }
+  .icon.pass {
+    background-image: url("images/icons/pass.png"); }
+    .icon.pass:focus, .icon.pass:hover {
+      background-image: url("images/icons/pass_b.png"); }
+  .icon.archive {
+    background-image: url("images/icons/archive.png"); }
+  .icon.menu {
+    background-image: url("images/icons/menu.png"); }
+    .icon.menu:focus, .icon.menu:hover {
+      background-image: url("images/icons/menu_b.png"); }
+  .icon.delete {
+    background-image: url("images/icons/delete.png"); }
+    .icon.delete:focus, .icon.delete:hover {
+      background-image: url("images/icons/delete_b.png"); }
+  .icon.done {
+    background-image: url("images/icons/done.png"); }
+    .icon.done:focus, .icon.done:hover {
+      background-image: url("images/icons/done_b.png"); }
+
+.Entry {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center; }
+  .Entry form {
+    border: 0.1rem solid #eaeaea;
+    padding: 1.5rem 2rem; }
+    .Entry form .alert {
+      max-width: 15rem; }
+    .Entry form .title {
+      margin: -0.4rem 0 0.8rem 0;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 100;
+      letter-spacing: 0.1rem; }
+    .Entry form .btn {
+      margin-top: 0.5rem; }
+    .Entry form input[type="text"], .Entry form input[type="password"] {
+      min-width: 15rem; }
+
+.Home .header {
+  background-color: #00b8ff;
+  padding: 1rem 5rem;
+  display: flex;
+  justify-content: space-between; }
+  .Home .header .title {
+    font-weight: bold;
+    color: #fff;
+    line-height: 1.5rem; }
+  .Home .header .archive {
+    color: #fff; }
+
+.Home .content {
+  display: flex;
+  min-height: calc(100vh - 3.5rem); }
+  .Home .content > div {
+    flex-basis: 0;
+    flex-grow: 2;
+    background-color: #f7f7f7;
+    padding: 2rem; }
+    .Home .content > div:nth-child(2) {
+      flex-grow: 3;
+      background-color: #fff; }
+      .Home .content > div:nth-child(2) .btn:first-of-type {
+        margin-top: 1rem; }
+    .Home .content > div:first-child {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end; }
+  .Home .content .filterDay {
+    width: 15rem;
+    line-height: 2rem; }
+    .Home .content .filterDay a {
+      color: #4c4c4c;
+      border: none;
+      font-weight: bold; }
+      .Home .content .filterDay a .count {
+        font-weight: normal;
+        margin-left: 0.3rem;
+        color: #adadad; }
+      .Home .content .filterDay a:hover {
+        border-bottom: 1px dashed; }
+  .Home .content .Projects {
+    width: 15rem;
+    margin-top: 2rem; }
+    .Home .content .Projects .title {
+      font-weight: bold;
+      text-decoration: underline;
+      margin-bottom: 1rem; }
+    .Home .content .Projects ul {
+      line-height: 1.5rem; }
+      .Home .content .Projects ul a {
+        color: #4c4c4c;
+        border: none;
+        width: 100%;
+        padding: 0.1rem 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center; }
+        .Home .content .Projects ul a .icons {
+          display: flex; }
+        .Home .content .Projects ul a .icon {
+          width: 20px;
+          height: 20px;
+          display: inline-block;
+          display: none; }
+          .Home .content .Projects ul a .icon:nth-child(n+2) {
+            margin-left: 0.5rem; }
+        .Home .content .Projects ul a:hover {
+          font-weight: bold;
+          background-color: #fff; }
+        .Home .content .Projects ul a:hover .icon {
+          display: block; }
+      .Home .content .Projects ul:hover a:not(:hover) {
+        color: #989898; }
+      .Home .content .Projects ul .color {
+        margin: 0 0.3rem -0.1rem 0;
+        border-radius: 50%;
+        width: 0.8rem;
+        height: 0.8rem;
+        display: inline-block; }
+    .Home .content .Projects .newProject {
+      margin-top: 1rem; }
+      .Home .content .Projects .newProject form {
+        display: flex; }
+        .Home .content .Projects .newProject form .colorSelector {
+          min-width: 2.3rem;
+          cursor: pointer; }
+          .Home .content .Projects .newProject form .colorSelector .github-picker {
+            position: absolute !important;
+            margin-top: 3rem; }
+        .Home .content .Projects .newProject form .name {
+          width: calc(100% - 1.2rem); }
+        .Home .content .Projects .newProject form .btn:last-of-type {
+          border-radius: 0 2px 2px 0 !important;
+          font-weight: bold; }
+        .Home .content .Projects .newProject form * {
+          border-radius: 0; }
+      .Home .content .Projects .newProject .link {
+        cursor: pointer;
+        display: inline-block; }
+        .Home .content .Projects .newProject .link:hover {
+          border-bottom: 1px dashed; }
+  .Home .content .Tasks .title {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 2rem; }
+    .Home .content .Tasks .title .date {
+      font-size: 0.9rem;
+      font-weight: normal;
+      color: #afafaf;
+      margin-left: 0.3rem; }
+  .Home .content .Tasks .task {
+    line-height: 3rem; }
+    .Home .content .Tasks .task .name {
+      display: flex;
+      align-items: center; }
+    .Home .content .Tasks .task li {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 1rem;
+      background-color: #fdfdfd;
+      cursor: pointer; }
+      .Home .content .Tasks .task li .tLabel {
+        width: 24px;
+        height: 24px;
+        margin-right: 1rem; }
+      .Home .content .Tasks .task li .pWrap {
+        display: flex;
+        align-items: center; }
+        .Home .content .Tasks .task li .pWrap .pLabel {
+          width: 0.8rem;
+          height: 0.8rem;
+          border-radius: 50%;
+          display: inline-block; }
+        .Home .content .Tasks .task li .pWrap .project {
+          display: inline-block;
+          margin-left: 0.5rem;
+          color: #b1b1b1; }
+        .Home .content .Tasks .task li .pWrap .icons {
+          display: none;
+          margin-right: -0.5rem; }
+          .Home .content .Tasks .task li .pWrap .icons .icon {
+            width: 24px;
+            height: 24px; }
+            .Home .content .Tasks .task li .pWrap .icons .icon:nth-child(n+2) {
+              margin-left: 0.5rem; }
+      .Home .content .Tasks .task li.expirated {
+        background-color: #ffdbdb !important; }
+      .Home .content .Tasks .task li:hover {
+        background-color: #fff !important; }
+        .Home .content .Tasks .task li:hover .pLabel, .Home .content .Tasks .task li:hover .project {
+          display: none; }
+      .Home .content .Tasks .task li:hover .pWrap .icons {
+        display: flex;
+        align-items: center; }
+      .Home .content .Tasks .task li:nth-child(2n+1) {
+        background-color: #f9f9f9; }
+  .Home .content .Tasks .form {
+    margin-top: 2rem; }
+    .Home .content .Tasks .form .link {
+      display: inline-block;
+      cursor: pointer; }
+      .Home .content .Tasks .form .link:hover {
+        border-bottom: 1px dashed; }
+    .Home .content .Tasks .form form .input-group {
+      flex-direction: column; }
+      .Home .content .Tasks .form form .input-group > * {
+        margin-bottom: 0.5rem; }
+    .Home .content .Tasks .form form .Select-control {
+      border-radius: 0; }
+    .Home .content .Tasks .form form .react-datepicker-wrapper {
+      display: block; }
+      .Home .content .Tasks .form form .react-datepicker-wrapper .react-datepicker__input-container {
+        display: block; }
+      .Home .content .Tasks .form form .react-datepicker-wrapper input {
+        height: 1.8rem;
+        width: calc(100% - 1.2rem); }
+
+@media screen and (max-width: 1100px) {
+  .Home .content > div {
+    flex-grow: 1; } }
+
+@media screen and (max-width: 750px) {
+  .Home .content {
+    flex-direction: column; }
+    .Home .content > div {
+      flex-basis: initial; }
+      .Home .content > div:first-child {
+        align-items: flex-start; }
+      .Home .content > div:last-child {
+        display: none; } }
+
 * {
   font-family: 'Open Sans'; }
 
+html {
+  font-size: 14px; }
+
 body {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  background-color: #fbfbfb; }
+
+a {
+  color: #008fe2;
+  border-bottom: 1px dashed;
+  text-decoration: none; }
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none; }

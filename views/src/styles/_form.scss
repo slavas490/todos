@@ -1,0 +1,75 @@
+form {
+    .row {
+        padding: 0.5rem 0;
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+    }
+}
+
+input[type="text"], input[type="password"], textarea {
+    border: 0.1rem solid #d2d2d2;
+    padding: 0.3rem 0.5rem;
+    border-radius: 2px;
+    font-size: 1rem;
+
+    &:focus {
+        outline: 0.2rem solid #1aabff;
+    }
+}
+
+.btn {
+    padding: 0.3rem 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0);
+    background: rgb(0, 161, 255);
+    border-radius: 2px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+    outline: none;
+
+    &.danger {
+        background-color: #ff8d3b;
+
+        &:hover {
+            background-color: #ef3005;
+        }
+    }
+
+    &:hover {
+        background: #007fca;
+    }
+}
+
+.alert {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    color: #fff;
+    border-radius: 2px;
+    margin: 0.8rem 0;
+
+    &.warn {
+        background: rgb(255, 145, 145);
+        border: 1px solid #ff4242;
+    }
+}
+
+.input-group {
+    display: flex;
+    
+    > * {
+        flex-grow: 1;
+        border-radius: 0!important;
+
+        &:first-child {
+            border-radius: 2px 0 0 2px!important;
+        }
+
+        &:last-child {
+            border-radius: 0 2px 2px 0!important;
+        }
+    }
+}

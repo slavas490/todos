@@ -2,7 +2,7 @@ const init = {
     logined: false
 }
 
-const user = (state = init, action) => {
+const reducer = (state = init, action) => {
 	switch (action.type) {
 		case 'USER_LOGIN':
             return { ...state, logined: true }
@@ -13,4 +13,4 @@ const user = (state = init, action) => {
 	}
 }
 
-export default user
+export default reducer

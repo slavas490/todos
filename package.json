@@ -4,7 +4,7 @@
   "private": true,
   "main": "app.js",
   "scripts": {
-    "start": "node ./bin/start",
+    "start": "nodemon ./bin/start --ignore './views'",
     "test": "mocha --recursive './test/*Test.js' --compilers js:babel-core/register"
   },
   "dependencies": {
@@ -16,7 +16,9 @@
     "cookie-parser": "^1.4.3",
     "debug": "^3.0.0",
     "express": "^4.15.4",
+    "mongoose": "^4.11.7",
     "morgan": "^1.8.2",
+    "nodemon": "^1.11.0",
     "serve-favicon": "^2.4.3"
   },
   "devDependencies": {

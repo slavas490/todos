@@ -1,0 +1,128 @@
+.title {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+
+    .date {
+        font-size: 0.9rem;
+        font-weight: normal;
+        color: #afafaf;
+        margin-left: 0.3rem;
+    }
+}
+
+.task {
+    line-height: 3rem;
+
+    .name {
+        display: flex;
+        align-items: center;
+    }
+
+    li {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 1rem;
+        background-color: #fdfdfd;
+        cursor: pointer;
+
+        .tLabel {
+            width: 24px;
+            height: 24px;
+            margin-right: 1rem;
+        }
+
+        .pWrap {
+            display: flex;
+            align-items: center;
+
+            .pLabel {
+                width: 0.8rem;
+                height: 0.8rem;
+                border-radius: 50%;
+                display: inline-block;
+            }
+            
+            .project {
+                display: inline-block;
+                margin-left: 0.5rem;
+                color: #b1b1b1;
+            }
+
+            .icons {
+                display: none;
+                margin-right: -0.5rem;
+                
+                .icon {
+                    width: 24px;
+                    height: 24px;
+
+                    &:nth-child(n+2) {
+                        margin-left: 0.5rem;
+                    }
+                }
+            }
+        }
+
+        &.expirated {
+            background-color: #ffdbdb!important;
+        }
+
+        &:hover {
+            background-color: #fff!important;
+
+            .pLabel, .project {
+                display: none;
+            }
+        }
+        
+        &:hover .pWrap .icons {
+            display: flex;
+            align-items: center;
+        }
+
+        &:nth-child(2n+1) {
+            background-color: #f9f9f9;
+        }
+    }
+}
+
+.form {
+    margin-top: 2rem;
+
+    .link {
+        display: inline-block;
+        cursor: pointer;
+        
+        &:hover {
+            border-bottom: 1px dashed;
+        }
+    }
+
+    form {
+        .input-group {
+            flex-direction: column;
+
+            > * {
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        .Select-control {
+            border-radius: 0;
+        }
+
+        .react-datepicker-wrapper {
+            display: block;
+
+            .react-datepicker__input-container {
+                display: block;
+            }
+
+            input {
+                height: 1.8rem;
+                width: calc(100% - 1.2rem);
+            }
+        }
+    }
+}

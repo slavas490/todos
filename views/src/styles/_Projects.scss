@@ -1,0 +1,95 @@
+.title {
+    font-weight: bold;
+    text-decoration: underline;
+    margin-bottom: 1rem;
+}
+
+ul {
+    line-height: 1.5rem;
+    
+    a {
+        color: $link-color;
+        border: none;
+        width: 100%;
+        padding: 0.1rem 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .icons {
+            display: flex;
+        }
+
+        .icon {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            display: none;
+            
+            &:nth-child(n+2) {
+                margin-left: 0.5rem;
+            }
+        }
+
+        &:hover {
+            font-weight: bold;
+            background-color: #fff;
+        }
+
+        &:hover .icon {
+            display: block;
+        }
+    }
+
+    &:hover a:not(:hover) {
+        color: #989898;
+    }
+
+    .color {
+        margin: 0 0.3rem -0.1rem 0;
+        border-radius: 50%;
+        width: 0.8rem;
+        height: 0.8rem;
+        display: inline-block;
+    }
+}
+
+.newProject {
+    margin-top: 1rem;
+
+    form {
+        display: flex;
+
+        .colorSelector {
+            min-width: 2.3rem;
+            cursor: pointer;
+            
+            .github-picker {
+                position: absolute!important;
+                margin-top: 3rem;
+            }
+        }
+
+        .name {
+            width: calc(100% - 1.2rem);
+        }
+
+        .btn:last-of-type {
+            border-radius: 0 2px 2px 0!important;
+            font-weight: bold;
+        }
+
+        * {
+            border-radius: 0;
+        }
+    }
+
+    .link {
+        cursor: pointer;
+        display: inline-block;
+
+        &:hover {
+            border-bottom: 1px dashed;
+        }
+    }
+}

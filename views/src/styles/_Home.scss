@@ -1,0 +1,103 @@
+.Home {
+    .header {
+        background-color: #00b8ff;
+        padding: 1rem 5rem;
+        display: flex;
+        justify-content: space-between;
+
+        .title {
+            font-weight: bold;
+            color: #fff;
+            line-height: 1.5rem;
+        }
+
+        .archive {
+            color: #fff;
+        }
+    }
+    
+    .content {
+        $link-color: #4c4c4c;
+
+        display: flex;
+        min-height: calc(100vh - 3.5rem);
+
+        > div {
+            flex-basis: 0;
+            flex-grow: 2;
+            background-color: #f7f7f7;
+            padding: 2rem;
+        
+            &:nth-child(2) {
+                flex-grow: 3;
+                background-color: #fff;
+
+                .btn:first-of-type {
+                    margin-top: 1rem;
+                }
+            }
+
+            &:first-child {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+            }
+        }
+
+        .filterDay {
+            width: 15rem;
+            line-height: 2rem;
+
+            a {
+                color: $link-color;
+                border: none;
+                font-weight: bold;
+                
+                .count {
+                    font-weight: normal;
+                    margin-left: 0.3rem;
+                    color: #adadad;
+                }
+
+                &:hover {
+                    border-bottom: 1px dashed;
+                }
+            }
+        }
+
+        .Projects {
+            width: 15rem;
+            margin-top: 2rem;
+
+            @import './Projects';
+        }
+
+        .Tasks {
+            @import './Tasks';
+        }
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .Home .content > div {
+        flex-grow: 1;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .Home .content {
+        flex-direction: column;
+
+        > div {
+            flex-basis: initial;
+
+            &:first-child {
+                align-items: flex-start;
+            }
+
+            &:last-child {
+                display: none;
+            }
+        }
+    }
+}

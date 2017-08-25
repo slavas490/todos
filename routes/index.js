@@ -1,12 +1,31 @@
 import express from 'express';
+import user from './user'
+import projects from './projects'
+import tasks from './tasks'
 
-const router = express.Router();
+const router = express.Router()
 
-/* GET index page. */
-router.get('/', (req, res) => {
-  res.json({
-    title: 'Express'
-  });
-});
+router.use((req, res, next) => {
+	res.ok = (data) => {
+		res.send({ err:0, text: "OK", data })
+	}
 
-export default router;
+	res.err = (text = '', err = 1) => {
+		res.send({ text, err });
+	}
+
+	next()
+})
+
+
+// User
+router.use('/user', user)
+
+// Projects
+router.use('/projects', projects)
+
+// Tasks
+router.use('/tasks', tasks)
+
+
+export default router

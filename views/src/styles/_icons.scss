@@ -1,0 +1,54 @@
+input.icon {
+    padding-left: 1.6rem!important;
+    background-position: 2px;
+    min-width: 13.9rem!important;
+}
+
+.icon {
+    background-repeat: no-repeat!important;
+    background-size: 20px;
+
+    &.login {
+        background-image: url('images/icons/user.png');
+
+        &:focus, &:hover {
+            background-image: url('images/icons/user_b.png');
+        }
+    }
+
+    &.pass {
+        background-image: url('images/icons/pass.png');
+
+        &:focus, &:hover {
+            background-image: url('images/icons/pass_b.png');
+        }
+    }
+
+    &.archive {
+        background-image: url('images/icons/archive.png');
+    }
+
+    &.menu {
+        background-image: url('images/icons/menu.png');
+
+        &:focus, &:hover {
+            background-image: url('images/icons/menu_b.png');
+        }
+    }
+
+    &.delete {
+        background-image: url('images/icons/delete.png');
+
+        &:focus, &:hover {
+            background-image: url('images/icons/delete_b.png');
+        }
+    }
+
+    &.done {
+        background-image: url('images/icons/done.png');
+
+        &:focus, &:hover {
+            background-image: url('images/icons/done_b.png');
+        }
+    }
+}

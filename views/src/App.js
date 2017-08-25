@@ -1,43 +1,72 @@
 import React, { Component } from 'react'
-import { createStore } from 'redux'
+import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { browserHistory } from 'react-router'
-import reducers from './reducers'
-import * as components from './pages'
+import {  Router, Route, Switch, Redirect } from 'react-router-dom'
+import { routerReducer } from 'react-router-redux'
+import createBrowserHistory from 'history/createBrowserHistory'
+import * as reducers from './reducers'
+import * as components from './components'
+import * as actions from './actions'
+import ajax from './utils/ajax'
 
-let store = createStore(reducers)
+const store = createStore(
+	combineReducers({
+		...reducers,
+		routing: routerReducer
+	})
+)
+
+const history = createBrowserHistory()
+
 
 class App extends Component {
 	constructor(props) {
 		super(props)
 
 		this.state = {
-			logined: false
+			logined: false,
+			_load: false
 		}
 
 		store.subscribe(() => {
 			const state = store.getState();
-			this.setState({ logined: state.user.logined });
+			this.setState({ logined: (state.user ? state.user.logined : false) });
+		})
+	}
+
+	componentDidMount () {
+		ajax.get('/user/token')
+		.then(out => {
+			this.setState({ _load: true })
+
+			if( out && !out.err ) {
+				store.dispatch(actions.user.login())
+			}
 		})
 	}
 
 	render() {
 		return (
 			<Provider store={store}>
-				<Router>
-					<div>
-						{
-							!this.state.logined
-							?
-								<Switch>
-									<Route path='/' exact component={components.Login} />
-									{/* <Route path='/signin' exact component={components.Register} /> */}
-								</Switch>
-							:
-								<button onClick={this.click2}>LogOUT</button>
-						}
-					</div>
+				<Router history={history}>
+					{ 
+						this.state._load &&
+							<div>
+								{
+									!this.state.logined
+									?
+										<div>
+											<Switch>
+												<Route exact path="/" component={components.Login} />
+												<Route path="/signup" component={components.Register} />
+												<Route children={() => <Redirect to="/" />} />
+											</Switch>
+										</div>
+									:
+										<components.Home historyEvent={history.listen} />
+								}
+							</div>
+					}
 				</Router>
 			</Provider>
 		)
