@@ -9,4 +9,4 @@ $ cd views/
 $ npm i -g npm-run-all
 $ npm run start &
 ```
-and go to localhost:3000
+and go to http://localhost:3000
