@@ -1,7 +1,7 @@
 # todos
 
 ```
-$ gitclone https://github.com/slavas490/todos
+$ git clone https://github.com/slavas490/todos
 $ cd todos
 $ npm i
 $ npm run start &
