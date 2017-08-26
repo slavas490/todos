@@ -1,12 +1,12 @@
 # todos
 
 ```
-$ gitclone https://github.com/slavas490/todos
+$ git clone https://github.com/slavas490/todos
 $ cd todos
 $ npm i
-$ npm run start &
+$ nohup npm run start &
 $ cd views/
-$ npm i -g npm-run-all
-$ npm run start &
+$ npm i
+$ nohup npm run start &
 ```
-and go to localhost:3000
+and go to http://localhost:3000
