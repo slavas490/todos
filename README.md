@@ -6,7 +6,7 @@ $ cd todos
 $ npm i
 $ nohup npm run start &
 $ cd views/
-$ npm i -g npm-run-all
+$ npm i
 $ nohup npm run start &
 ```
 and go to http://localhost:3000
