@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "node-sass-chokidar": "0.0.3",
+    "npm-run-all": "^4.1.0",
     "react": "^15.6.1",
     "react-alert": "^2.2.0",
     "react-color": "^2.13.5",
